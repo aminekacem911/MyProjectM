@@ -17,5 +17,9 @@ namespace MyProjectM.Areas.Identity.Data
         [PersonalData]
         [Column(TypeName = "nvarchar(100)")]
         public string LastName { get; set; }
+        [PersonalData]
+        [Column(TypeName = "nvarchar(100)")]
+        public string Isadmin { get; set; }
+        
     }
 }

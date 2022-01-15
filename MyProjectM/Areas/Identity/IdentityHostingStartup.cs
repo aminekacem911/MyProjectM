@@ -20,7 +20,7 @@ namespace MyProjectM.Areas.Identity
                     options.UseSqlServer(
                         context.Configuration.GetConnectionString("AuthContextConnection")));
 
-                services.AddDefaultIdentity<MyProjectMUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                services.AddDefaultIdentity<MyProjectMUser>(options => options.SignIn.RequireConfirmedAccount = false)
                     .AddEntityFrameworkStores<AuthContext>();
             });
         }

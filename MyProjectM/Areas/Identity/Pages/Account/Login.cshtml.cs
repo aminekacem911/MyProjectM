@@ -84,7 +84,18 @@ namespace MyProjectM.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
-                    return LocalRedirect(returnUrl);
+                    var user = await _userManager.FindByEmailAsync(Input.Email);
+                    if (user.Isadmin == "1")
+                    {
+                        //redirect to panel admin
+                        return RedirectToPage("./dash");
+                    }
+                    else
+                    {
+                        return LocalRedirect(returnUrl);
+                    }
+
+
                 }
                 if (result.RequiresTwoFactor)
                 {
