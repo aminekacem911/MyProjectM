@@ -88,7 +88,7 @@ namespace MyProjectM.Areas.Identity.Pages.Account
                     if (user.Isadmin == "1")
                     {
                         //redirect to panel admin
-                        return RedirectToPage("./dash");
+                        return RedirectToAction("Index", "Admin");
                     }
                     else
                     {
