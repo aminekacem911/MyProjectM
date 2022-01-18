@@ -8,7 +8,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
+using Microsoft.EntityFrameworkCore;
+using MyProjectM.Areas.Identity.Data;
+using MyProjectM.Data;
 namespace MyProjectM
 {
     public class Startup
@@ -25,6 +27,11 @@ namespace MyProjectM
         {
             services.AddControllersWithViews();
             services.AddRazorPages();
+            services.AddDbContext<AuthContext>(options =>
+                    options.UseSqlServer(
+                        Configuration.GetConnectionString("AuthContextConnection")));
+
+          
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -52,6 +59,7 @@ namespace MyProjectM
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapControllerRoute("areas", "{area:exists}/{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
         }

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using MyProjectM.Areas.Identity.Data;
+using MyProjectM.Models;
 
 namespace MyProjectM.Data
 {
@@ -23,5 +24,9 @@ namespace MyProjectM.Data
             // For example, you can rename the ASP.NET Identity table names and more.
             // Add your customizations after calling base.OnModelCreating(builder);
         }
+
+        public DbSet<MyProjectM.Models.Ticket> Ticket { get; set; }
+        
+
     }
 }

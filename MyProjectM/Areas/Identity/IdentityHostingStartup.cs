@@ -16,9 +16,9 @@ namespace MyProjectM.Areas.Identity
         public void Configure(IWebHostBuilder builder)
         {
             builder.ConfigureServices((context, services) => {
-                services.AddDbContext<AuthContext>(options =>
-                    options.UseSqlServer(
-                        context.Configuration.GetConnectionString("AuthContextConnection")));
+                //services.AddDbContext<AuthContext>(options =>
+                //    options.UseSqlServer(
+                //        context.Configuration.GetConnectionString("AuthContextConnection")));
 
                 services.AddDefaultIdentity<MyProjectMUser>(options => options.SignIn.RequireConfirmedAccount = false)
                     .AddEntityFrameworkStores<AuthContext>();
