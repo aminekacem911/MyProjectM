@@ -27,6 +27,7 @@ namespace MyProjectM
         {
             services.AddControllersWithViews();
             services.AddRazorPages();
+            services.AddHttpClient();
             services.AddDbContext<AuthContext>(options =>
                     options.UseSqlServer(
                         Configuration.GetConnectionString("AuthContextConnection")));
