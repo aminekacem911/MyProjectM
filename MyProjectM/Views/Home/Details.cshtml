@@ -1,0 +1,177 @@
+﻿
+@{
+    ViewData["Title"] = "Details";
+    
+}
+<div class="single-page-agile-main">
+	<div class="container">
+		<!-- /w3l-medile-movies-grids -->
+			<div class="agileits-single-top">
+				<ol class="breadcrumb">
+				  <li><a href="index.html">Home</a></li>
+				  <li class="active">Single</li>
+				</ol>
+			</div>
+			<div class="single-page-agile-info">
+                   <!-- /movie-browse-agile -->
+                           <div class="show-top-grids-w3lagile">
+				<div class="col-sm-8 single-left">
+					<div class="song">
+						<div class="song-info">
+							<h3>@ViewBag.data.Title</h3>
+							<h3>@ViewBag.data.Genres</h3>	
+					</div>
+						<div class="video-grid-single-page-agileits">
+							<div> <img src="@ViewBag.data.Image" alt="@ViewBag.data.Title" class="img-responsive" /> </div>
+						</div>
+					</div>
+					<div class="song-grid-right">
+						<div class="share">
+							<p>@ViewBag.data.Plot</p><br/>
+							
+						</div>
+					</div>
+					<div class="clearfix"> </div>
+
+					<div class="all-comments">
+						<div>
+							<style>
+								table {
+								  font-family: arial, sans-serif;
+								  border-collapse: collapse;
+								  width: 100%;
+								}
+								
+								td, th {
+								  border: 1px solid #dddddd;
+								  text-align: left;
+								  padding: 8px;
+								}
+								
+								tr:nth-child(even) {
+								  background-color: #dddddd;
+								}
+								</style>
+							
+									<table>
+										<tr>
+										<th colspan="2">Informations</th>
+										</tr>
+										<tr>
+										<td>Type :</td>
+										<td>@ViewBag.data.Type</td>
+										
+										</tr>
+										<tr>
+										<td>ReleaseDate :</td>
+										<td>@ViewBag.data.ReleaseDate</td>
+										
+										</tr>
+										<tr>
+										<td>Awards :</td>
+										<td>@ViewBag.data.Awards</td>
+										
+										</tr>
+										<tr>
+										<td>Directors</td>
+										<td>
+											
+											<ol>
+												@foreach (var dic in ViewBag.data.DirectorList){
+												<li>@dic.Name</li>
+												}
+											</ol>
+
+										</td>
+										
+										</tr>
+										<tr>
+										<td>Writers :</td>
+										<td>
+											<ol>
+												@foreach (var comm in ViewBag.data.CompanyList){
+												<li>@comm.Name</li>
+												}
+											</ol>
+										</td>
+										
+										</tr>
+										<tr>
+										<td>Stars :</td>
+										<td>@ViewBag.data.Stars</td>
+										</tr>
+										<tr>
+											<td>Companies :</td>
+											<td>
+												<ol>
+												@foreach (var dic in ViewBag.data.DirectorList){
+												<li>@dic.Name</li>
+												}
+											</ol>
+											</td>
+										</tr>
+										<tr>
+											<td>contentRating :</td>
+											<td>@ViewBag.data.ContentRating</td>
+										</tr>
+										<tr>
+											<td>imDbRating :</td>
+											<td>@ViewBag.data.IMDbRating</td>
+										</tr>
+										<tr>
+											<td>imDbRatingVotes :</td>
+											<td>@ViewBag.data.IMDbRatingVotes</td>
+										</tr>
+										<tr>
+											<td>BoxOffice :</td>
+											<td><ol>
+												<li>budget :@ViewBag.data.BoxOffice.Budget </li>
+												<li>openingWeekendUSA : @ViewBag.data.BoxOffice.OpeningWeekendUSA</li>
+												<li>grossUSA : @ViewBag.data.BoxOffice.GrossUSA</li>
+												<li>cumulativeWorldwideGross : @ViewBag.data.BoxOffice.CumulativeWorldwideGross</li>
+											</ol></td>
+										</tr>
+  </table>
+						</div>
+						
+					</div>
+				</div>
+				<div class="col-md-4 single-right">
+					<h3>Actors</h3>
+					<div class="single-grid-right">
+
+						@foreach (var actor in ViewBag.data.ActorList){
+						<div class="single-right-grids">
+							<div class="col-md-4 single-right-grid-left">
+								<a href="#"><img src="@actor.Image" alt="@actor.Name" /></a>
+							</div>
+							<div class="col-md-8 single-right-grid-right">
+								
+								<p class="author">@actor.Name</p>
+								
+							</div>
+							<div class="clearfix"> </div>
+						</div>
+						}
+				
+					</div>
+
+
+
+
+				</div>
+				
+
+				
+				<div class="clearfix"> </div>
+			</div>
+				<!-- //movie-browse-agile -->
+				<!--body wrapper start-->
+			
+		<!--body wrapper end-->
+						
+							 
+				</div>
+				<!-- //w3l-latest-movies-grids -->
+			</div>	
+		</div>

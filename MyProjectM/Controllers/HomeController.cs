@@ -35,13 +35,13 @@ namespace MyProjectM.Controllers
             var apiLib = new ApiLib("k_3mj6zgvx");
             var data = await apiLib.Top250MoviesAsync();
             ViewBag.data = data;
-            //List<Movie> VisualList = new List<Movie>();
-            //foreach (var movie in data.Items)
-            //{
-            //    movie.IMDbRating
-            //    movie.IMDbRatingCount
-            //}
-            // Movies = <List<Movie>>(data);
+            var coming = await apiLib.ComingSoonAsync();
+            ViewBag.coming = coming;
+            var boxes = await apiLib.BoxOfficeAsync();
+            ViewBag.boxes = boxes;
+            var ths = await apiLib.InTheatersAsync();
+            ViewBag.ths = ths;
+ 
             return View();
         }
             
@@ -52,6 +52,14 @@ namespace MyProjectM.Controllers
         }
         public IActionResult Faq()
         {
+            return View();
+        }
+        public async Task<IActionResult> DetailsAsync(string id)
+        {
+            var apiLib = new ApiLib("k_3mj6zgvx");
+            var data = await apiLib.TitleAsync(id, Language.en, "FullActor,FullCast,Posters,Images,Trailer,Ratings,Wikipedia");
+           
+            ViewBag.data = data;
             return View();
         }
 
