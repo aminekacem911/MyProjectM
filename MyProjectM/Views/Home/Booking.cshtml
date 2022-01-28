@@ -1,0 +1,58 @@
+﻿
+@{
+    ViewData["Title"] = "Booking";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="song">
+						<div class="song-info">
+							<h3>Title</h3>
+					</div>
+						<div class="video-grid-single-page-agileits">
+							<div> <img src="~/front/images/5.jpg" alt="Title" class="img-responsive" /> </div>
+						</div>
+					</div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                        <center><h4>Reservation</h4></center>
+               </div><br/>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                             <div class="form-group">
+                                         <label>Num of Tickets :</label>
+                                    <input  class="form-control" type="number" name="member" />
+                               </div>
+                                 @*int selectedOption = ViewBag.SelectedOption;*@
+                              <div class="form-group">
+                                    <label>Theater place :</label><br/>
+                                    <select class="form-control" id="SelectedYear" name="SelectedYear">       
+                                          @*<option value="2010" @(selectedOption == 2010 ? "selected" : "")>2010</option>*@
+                                        <option value="2011">2011</option>             
+                                        <option value="2012">2012</option>
+                                               <option value="2013">2013</option>
+                                    </select>
+                             </div>
+                        </div>
+                        <div class="col-md-6">
+                            <center><h3>Members List</h3></center>
+                            <center><ol>
+                                <li>amine</li>
+                                <li>rihab</li>
+                            </ol></center>
+                        </div>
+                    </div>
+                   
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
