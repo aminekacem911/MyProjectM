@@ -20,6 +20,8 @@ namespace MyProjectM.Areas.Identity.Data
         [PersonalData]
         [Column(TypeName = "nvarchar(100)")]
         public string Isadmin { get; set; }
-        
+        //public ICollection<Member> Members { get; set; }
+
+
     }
 }

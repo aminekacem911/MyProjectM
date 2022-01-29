@@ -23,30 +23,51 @@
                 <div class="card-header">
                         <center><h4>Reservation</h4></center>
                </div><br/>
-                <div class="card-body">
+                <div class="card-body" >
                     <div class="row">
-                        <div class="col-md-6">
-                             <div class="form-group">
-                                         <label>Num of Tickets :</label>
-                                    <input  class="form-control" type="number" name="member" />
-                               </div>
-                                 @*int selectedOption = ViewBag.SelectedOption;*@
-                              <div class="form-group">
-                                    <label>Theater place :</label><br/>
-                                    <select class="form-control" id="SelectedYear" name="SelectedYear">       
-                                          @*<option value="2010" @(selectedOption == 2010 ? "selected" : "")>2010</option>*@
-                                        <option value="2011">2011</option>             
-                                        <option value="2012">2012</option>
-                                               <option value="2013">2013</option>
-                                    </select>
-                             </div>
-                        </div>
+                            <form>
+                                <div class="col-md-6">
+                                     <div class="form-group">
+                                                 <label>Num of Tickets :</label>
+                                            <input  class="form-control" type="number" name="ticket" min="1" />
+                                       </div>
+                                         @*int selectedOption = ViewBag.SelectedOption;*@
+                                      <div class="form-group">
+                                            <label>Theater place :</label><br/>
+                                            <select class="form-control" id="SelectedYear" name="SelectedYear">       
+                                                  @*<option value="2010" @(selectedOption == 2010 ? "selected" : "")>2010</option>*@
+                                                <option value="2011">sousse</option>             
+                                                <option value="2012">monastri</option>
+                                                       <option value="2013">zimbabwee</option>
+                                            </select>
+                                     </div>
+                                     <div class="form-group">
+                                         <label>forrr :</label><br/>
+                                         <style>
+                                             #customers option{
+                                                  width:200px;   
+                                                }
+                                         </style>
+                                         @Html.DropDownList("customers", new List<SelectListItem>
+                                            {
+                                           new SelectListItem{ Text="amine", Value = "1" },
+                                           new SelectListItem{ Text="rihab", Value = "2" },
+                                           new SelectListItem{ Text="test", Value = "3" },
+                                   
+                                        } ,new { @multiple = "multiple" })
+                                     </div>
+                                    @* @Html.DropDownList("1", Model, new { @multiple = "multiple" })*@
+                                    <input class="btn btn-primary" type="submit" name="Book" value="Book"/>
+                                </div>
+                            </form>
                         <div class="col-md-6">
                             <center><h3>Members List</h3></center>
                             <center><ol>
+                               @* <li>@UserManager.GetUserName(User) </li>*@
                                 <li>amine</li>
                                 <li>rihab</li>
                             </ol></center>
+                            <center><a class="btn btn-primary btn-lg" href="#">Add Member</a></center>
                         </div>
                     </div>
                    
@@ -56,3 +77,11 @@
         </div>
     </div>
 </div>
+ <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css"/>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $("#customers").select2();
+        });
+    </script>
