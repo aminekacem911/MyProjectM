@@ -17,6 +17,10 @@ namespace MyProjectM.Data
         {
         }
 
+        //public AuthContext()
+        //{
+        //}
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
@@ -26,7 +30,8 @@ namespace MyProjectM.Data
         }
 
         public DbSet<MyProjectM.Models.Ticket> Ticket { get; set; }
-        
+        public DbSet<Contact> Contact { get; set; }
+
 
     }
 }

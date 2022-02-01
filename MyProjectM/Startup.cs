@@ -30,8 +30,8 @@ namespace MyProjectM
             services.AddDbContext<AuthContext>(options =>
                     options.UseSqlServer(
                         Configuration.GetConnectionString("AuthContextConnection")));
+            services.AddControllers();
 
-          
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
