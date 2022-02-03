@@ -36,7 +36,8 @@ namespace MyProjectM.Controllers
         
         public async Task<IActionResult> IndexAsync()
         {
-            var apiLib = new ApiLib("k_3mj6zgvx");
+            //k_3mj6zgvx
+            var apiLib = new ApiLib("k_9yyzypa4"); 
             var data = await apiLib.Top250MoviesAsync();
             ViewBag.data = data;
             var coming = await apiLib.ComingSoonAsync();

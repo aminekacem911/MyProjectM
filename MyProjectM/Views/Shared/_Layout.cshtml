@@ -20,7 +20,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
 		function hideURLbar(){ window.scrollTo(0,1); } </script>
 <!-- //for-mobile-apps -->
- <link href="~/front/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"/>
 <link href="~/front/css/style.css" rel="stylesheet" type="text/css" media="all" />
 <link rel="stylesheet" href="~/front/css/contactstyle.css" type="text/css" media="all" />
 <link rel="stylesheet" href="~/front/css/faqstyle.css" type="text/css" media="all" />
@@ -105,7 +105,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 <!-- //bootstrap-pop-up -->
 <!-- nav -->
-	<div class="movies_nav">
+	@*<div class="movies_nav">
 		<div class="container">
 			<nav class="navbar navbar-default">
 				<div class="navbar-header navbar-left">
@@ -143,7 +143,77 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				</div>
 			</nav>	
 		</div>
-	</div>
+	</div>*@
+	<style>
+		 a.navbar-brand {
+            float: center;
+            height: 50px;
+            padding: 15px 15px;
+            font-size: 18px;
+            line-height: 20px;
+            text-decoration: none;
+            color: orangered;
+            font-family: cursive;
+            font-weight: 700;
+
+        }
+
+        nav.main-navigation {
+            position: relative;
+        }
+
+        nav.main-navigation ul.nav-list {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            position: relative;
+            text-align: right;
+        }
+
+        .nav-list li.nav-list-item {
+            display: inline-block;
+            line-height: 40px;
+            margin-left: 30px;
+            margin-top: 15px;
+        }
+
+        a.nav-link {
+            
+            font-size: 30px;
+            font-family: sans-serif;
+            font-weight: normal;
+            cursor: pointer;
+            position: relative;
+            color: #404040;
+        }
+	</style>
+	 <nav class="movies_nav" >
+       
+        <ul class="nav-list navbar-center">
+            <li class="nav-list-item">
+                <a asp-area="" asp-controller="Home" asp-action="Index" class="active nav-link">Home</a>
+            </li>
+            <li class="nav-list-item">
+                <a asp-area=""  asp-controller="Home" asp-action="Contact" class="nav-link">Contacts</a>
+            </li>
+            <li class="nav-list-item">
+                <a asp-area="" asp-controller="Home" asp-action="Faq" class="nav-link">Blog</a>
+            </li>
+				@if (SignInManager.IsSignedIn(User))
+								{
+            <li class="nav-list-item">
+                <a asp-area="Identity" asp-page="/Account/Manage/Index" class="nav-link">Profile</a>
+            </li>
+			<li class="nav-list-item">
+				<form id="logoutForm" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+					<button id="logout"  submit">Logout</button>
+				</form>
+			</li>
+								}		
+            
+        </ul>
+
+    </nav>
 <!-- //nav -->
 
 
