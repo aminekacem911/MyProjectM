@@ -10,28 +10,28 @@ using MyProjectM.Models;
 
 namespace MyProjectM.Data
 {
-    public class AuthContext : IdentityDbContext<MyProjectMUser>
+
+    public class AuthContext : IdentityDbContext<MyProjectMUser> 
     {
+      
         public AuthContext(DbContextOptions<AuthContext> options)
             : base(options)
         {
         }
 
-        //public AuthContext()
-        //{
-        //}
+        public DbSet<MyProjectM.Models.Ticket> Ticket { get; set; }
+        public DbSet<Contact> Contact { get; set; }
+
+        public DbSet<MyProjectM.Models.Member> Member { get; set; }
+       // public DbSet<Areas.Identity.Data.MyProjectMUser> Users { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-            // Customize the ASP.NET Identity model and override the defaults if needed.
-            // For example, you can rename the ASP.NET Identity table names and more.
-            // Add your customizations after calling base.OnModelCreating(builder);
+
+  
         }
 
-        public DbSet<MyProjectM.Models.Ticket> Ticket { get; set; }
-        public DbSet<Contact> Contact { get; set; }
-
-
+       
     }
 }

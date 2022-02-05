@@ -304,18 +304,50 @@
 						<div class="row">
 							@foreach (var com in ViewBag.coming.Items){
 							
+								<div class="col-md-2">
+									<a  asp-controller="Home" asp-action="Details" asp-route-id="@com.Id" class="hvr-shutter-out-horizontal"><img style ="width:150px;height:200px;" src="@com.Image" title="album-name" class="img-responsive" alt="@com.Title" />
+										<div class="w3l-action-icon"><i class="fa fa-play-circle" aria-hidden="true"></i></div>
+									</a>
+									<div class="mid-1 agileits_w3layouts_mid_1_home">
+										<div class="w3l-movie-text">
+											<h6><a asp-controller="Home" asp-action="Details" asp-route-id="@com.Id">@com.Title</a></h6>							
+										</div>
+										<div class="mid-2 agile_mid_2_home">
+											 <center><h4>@com.RuntimeStr</h4><br/></center>
+											<h4>@com.Genres</h4> 
+										
+											<div class="clearfix"></div>
+										</div>
+									</div>
+									<div class="ribben">
+										<p>NEW</p>
+									</div>
+								</div>
+								}
+								<div class="clearfix"></div>
+						</div>					
+					</div>
+					<div role="tabpanel" class="tab-pane " id="top" aria-labelledby="top-tab">
+						<div class="row">
+							@foreach (var mov in ViewBag.data.Items){
 							<div class="col-md-2">
-								<a  asp-controller="Home" asp-action="Details" asp-route-id="@com.Id" class="hvr-shutter-out-horizontal"><img src="@com.Image" title="album-name" class="img-responsive" alt="@com.Title" />
+								<a asp-controller="Home" asp-action="Details" asp-route-id="@mov.Id" class="hvr-shutter-out-horizontal"><img src="@mov.Image" style ="width:150px;height:200px;" title="album-name" class="img-responsive" alt=" " />
 									<div class="w3l-action-icon"><i class="fa fa-play-circle" aria-hidden="true"></i></div>
 								</a>
 								<div class="mid-1 agileits_w3layouts_mid_1_home">
 									<div class="w3l-movie-text">
-										<h6><a asp-controller="Home" asp-action="Details" asp-route-id="@com.Id">@com.Title</a></h6>							
+										<h6><a asp-controller="Home" asp-action="Details" asp-route-id="@mov.Id">@mov.Title </a></h6>							
 									</div>
 									<div class="mid-2 agile_mid_2_home">
-										 <center><h4>@com.RuntimeStr</h4><br/></center>
-										<h4>@com.Genres</h4> 
-										
+										<i class="fa fa-line-chart" aria-hidden="true"></i>
+										<p>@mov.IMDbRatingCount</p>
+										<div class="block-stars">
+											<ul class="w3l-ratings">
+											
+												<li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+												<li><p>@mov.IMDbRating</p></li>
+											</ul>
+										</div>
 										<div class="clearfix"></div>
 									</div>
 								</div>
@@ -324,88 +356,52 @@
 								</div>
 							</div>
 							}
-							<div class="clearfix"></div>
-							</div>
-						
-					</div>
-					<div role="tabpanel" class="tab-pane " id="top" aria-labelledby="top-tab">
-						<div class="row">
-						@foreach (var mov in ViewBag.data.Items){
-						<div class="col-md-2">
-							<a asp-controller="Home" asp-action="Details" asp-route-id="@mov.Id" class="hvr-shutter-out-horizontal"><img src="@mov.Image" title="album-name" class="img-responsive" alt=" " />
-								<div class="w3l-action-icon"><i class="fa fa-play-circle" aria-hidden="true"></i></div>
-							</a>
-							<div class="mid-1 agileits_w3layouts_mid_1_home">
-								<div class="w3l-movie-text">
-									<h6><a asp-controller="Home" asp-action="Details" asp-route-id="@mov.Id">@mov.Title </a></h6>							
-								</div>
-								<div class="mid-2 agile_mid_2_home">
-									<i class="fa fa-line-chart" aria-hidden="true"></i>
-									<p>@mov.IMDbRatingCount</p>
-									<div class="block-stars">
-										<ul class="w3l-ratings">
-											
-											<li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
-											<li><p>@mov.IMDbRating</p></li>
-										</ul>
-									</div>
-									<div class="clearfix"></div>
-								</div>
-							</div>
-							<div class="ribben">
-								<p>NEW</p>
-							</div>
 						</div>
-						}
-						<div class="clearfix"></div>
-						</div>
-						
 					</div>
 					<div role="tabpanel" class="tab-pane " id="rating" aria-labelledby="rating-tab">
 						<div class="row">
-						@foreach (var box in ViewBag.boxes.Items){
-						<div class="col-md-2">
-							<a asp-controller="Home" asp-action="Details" asp-route-id="@box.Id" class="hvr-shutter-out-horizontal"><img src="@box.Image" title="album-name" class="img-responsive" alt="@box.Title" />
-								<div class="w3l-action-icon"><i class="fa fa-play-circle" aria-hidden="true"></i></div>
-							</a>
-							<div class="mid-1 agileits_w3layouts_mid_1_home">
-								<div class="w3l-movie-text">
-									<h6><a asp-controller="Home" asp-action="Details" asp-route-id="@box.Id">@box.Title</a></h6>							
-								</div>
-								<div class="mid-2 agile_mid_2_home">
-									<p>Weekend :</p><p>@box.Weekend</p><br/>
-									<p>Gross :</p><p>@box.Gross</p>
-									<div class="clearfix"></div>
+							@foreach (var box in ViewBag.boxes.Items){
+							<div class="col-md-2">
+								<a asp-controller="Home" asp-action="Details" asp-route-id="@box.Id" class="hvr-shutter-out-horizontal"><img src="@box.Image" style ="width:150px;height:200px;" title="album-name" class="img-responsive" alt="@box.Title" />
+									<div class="w3l-action-icon"><i class="fa fa-play-circle" aria-hidden="true"></i></div>
+								</a>
+								<div class="mid-1 agileits_w3layouts_mid_1_home">
+									<div class="w3l-movie-text">
+										<h6><a asp-controller="Home" asp-action="Details" asp-route-id="@box.Id">@box.Title</a></h6>							
+									</div>
+									<div class="mid-2 agile_mid_2_home">
+										<p>Weekend :</p><p>@box.Weekend</p><br/>
+										<p>Gross :</p><p>@box.Gross</p>
+										<div class="clearfix"></div>
+									</div>
 								</div>
 							</div>
-							
-						</div>
-						}
+							}
 						</div>
 					</div>
 					<div role="tabpanel" class="tab-pane " id="imdb" aria-labelledby="imdb-tab">
 						<div class="row">
-						@foreach (var th in ViewBag.ths.Items){
-						<div class="col-md-2">
-							<a asp-controller="Home" asp-action="Details" asp-route-id="@th.Id" class="hvr-shutter-out-horizontal"><img src="@th.Image" title="album-name" class="img-responsive" alt="@th.Title" />
-								<div class="w3l-action-icon"><i class="fa fa-play-circle" aria-hidden="true"></i></div>
-							</a>
-							<div class="mid-1 agileits_w3layouts_mid_1_home">
-								<div class="w3l-movie-text">
-									<h6><a asp-controller="Home" asp-action="Details" asp-route-id="@th.Id">@th.Title</a></h6>							
+							@foreach (var th in ViewBag.ths.Items){
+								<div class="col-md-2">
+									<a asp-controller="Home" asp-action="Details" asp-route-id="@th.Id" class="hvr-shutter-out-horizontal"><img src="@th.Image" style ="width:150px;height:200px;" title="album-name" class="img-responsive" alt="@th.Title" />
+										<div class="w3l-action-icon"><i class="fa fa-play-circle" aria-hidden="true"></i></div>
+									</a>
+									<div class="mid-1 agileits_w3layouts_mid_1_home">
+										<div class="w3l-movie-text">
+											<h6><a asp-controller="Home" asp-action="Details" asp-route-id="@th.Id">@th.Title</a></h6>							
+										</div>
+										<div class="mid-2 agile_mid_2_home">
+											<h4>@th.Year</h4><br/>
+											<h4>@th.Genres</h4>
+											<div class="clearfix"></div>
+										</div>
+									</div>
+									<div class="ribben">
+										<p>NEW</p>
+									</div>
 								</div>
-								<div class="mid-2 agile_mid_2_home">
-									<h4>@th.Year</h4><br/>
-									<h4>@th.Genres</h4>
-									<div class="clearfix"></div>
-								</div>
-							</div>
-							<div class="ribben">
-								<p>NEW</p>
-							</div>
-						</div>
-						}
-						<div class="clearfix"></div>
+							}
+						
 						 </div>
 					</div>
 				</div>
