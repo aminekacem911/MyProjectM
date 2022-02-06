@@ -20,8 +20,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Views\Admin\NewFolder\" />
     <Folder Include="Views\Front\NewFolder\" />
-    <Folder Include="Views\Members\" />
     <Folder Include="wwwroot\front\" />
     <Folder Include="wwwroot\NewFolder1\" />
     <Folder Include="wwwroot\NewFolder\" />

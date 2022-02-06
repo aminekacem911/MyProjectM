@@ -19,13 +19,13 @@
   </style>
 <div class="container">
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-4">
             <div class="song">
 						<div class="song-info">
-							<h3>Title</h3>
+							<center><h3>@ViewBag.data.Title</h3></center>
 					</div>
 						<div class="video-grid-single-page-agileits">
-							<div> <img src="~/front/images/5.jpg" alt="Title" class="img-responsive" /> </div>
+							<div> <img src="@ViewBag.data.Image" alt="@ViewBag.data.Title" class="img-responsive" />  </div>
 						</div>
 					</div>
         </div>
@@ -37,13 +37,13 @@
                 <div class="card-body" >
                     <div class="row">
                             <form>
-                                <div class="col-md-6">
+                                <div class="col-md-8">
                                      <div class="form-group">
-                                                 <label>Num of Tickets :</label>
+                                             <label>Num of Tickets :</label>
                                             <input  class="form-control" type="number" name="ticket" min="1" />
                                        </div>
                                        <div class="form-group">
-                                           <label>Are You Included ? :</label><br/>
+                                           <label>Are You Included ? </label><br/>
                                            <center>
                                              <label>Yes</label>
                                              <input type="radio" id="show" name="example" value="yes" />
@@ -63,7 +63,7 @@
                                             </select>
                                      </div>
                                      <div class="form-group">
-                                         <label>forrr :</label><br/>
+                                         <label>Any specific Member :</label><br/>
                                          <style>
                                              #customers option{
                                                   width:200px;   
@@ -81,7 +81,7 @@
                                     <input class="btn btn-primary" type="submit" name="Book" value="Book"/>
                                 </div>
                             </form>
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <center><h3>Who's Invited ?</h3></center>
                             <center>
                                 <ul>
