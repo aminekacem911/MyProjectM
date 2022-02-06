@@ -10,8 +10,8 @@ using MyProjectM.Data;
 namespace MyProjectM.Migrations
 {
     [DbContext(typeof(AuthContext))]
-    [Migration("20220128222959_12")]
-    partial class _12
+    [Migration("20220205191809_MemberCreate")]
+    partial class MemberCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -261,6 +261,21 @@ namespace MyProjectM.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Contact");
+                });
+
+            modelBuilder.Entity("MyProjectM.Models.Member", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("FullName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Member");
                 });
 
             modelBuilder.Entity("MyProjectM.Models.Ticket", b =>

@@ -8,24 +8,24 @@ using Microsoft.EntityFrameworkCore;
 using MyProjectM.Data;
 using MyProjectM.Models;
 
-namespace MyProjectM.Views.Admin
+namespace MyProjectM.Views
 {
-    public class TicketsController : Controller
+    public class MembersController : Controller
     {
         private readonly AuthContext _context;
 
-        public TicketsController(AuthContext context)
+        public MembersController(AuthContext context)
         {
             _context = context;
         }
 
-        // GET: Tickets
+        // GET: Members
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Ticket.ToListAsync());
+            return View(await _context.Member.ToListAsync());
         }
 
-        // GET: Tickets/Details/5
+        // GET: Members/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -33,39 +33,39 @@ namespace MyProjectM.Views.Admin
                 return NotFound();
             }
 
-            var ticket = await _context.Ticket
+            var member = await _context.Member
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (ticket == null)
+            if (member == null)
             {
                 return NotFound();
             }
 
-            return View(ticket);
+            return View(member);
         }
 
-        // GET: Tickets/Create
+        // GET: Members/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Tickets/Create
+        // POST: Members/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Price,theater")] Ticket ticket)
+        public async Task<IActionResult> Create([Bind("Id,FullName")] Member member)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(ticket);
+                _context.Add(member);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(ticket);
+            return View(member);
         }
 
-        // GET: Tickets/Edit/5
+        // GET: Members/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -73,22 +73,22 @@ namespace MyProjectM.Views.Admin
                 return NotFound();
             }
 
-            var ticket = await _context.Ticket.FindAsync(id);
-            if (ticket == null)
+            var member = await _context.Member.FindAsync(id);
+            if (member == null)
             {
                 return NotFound();
             }
-            return View(ticket);
+            return View(member);
         }
 
-        // POST: Tickets/Edit/5
+        // POST: Members/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Price,theater")] Ticket ticket)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,FullName")] Member member)
         {
-            if (id != ticket.Id)
+            if (id != member.Id)
             {
                 return NotFound();
             }
@@ -97,12 +97,12 @@ namespace MyProjectM.Views.Admin
             {
                 try
                 {
-                    _context.Update(ticket);
+                    _context.Update(member);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!TicketExists(ticket.Id))
+                    if (!MemberExists(member.Id))
                     {
                         return NotFound();
                     }
@@ -113,10 +113,10 @@ namespace MyProjectM.Views.Admin
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(ticket);
+            return View(member);
         }
 
-        // GET: Tickets/Delete/5
+        // GET: Members/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -124,30 +124,30 @@ namespace MyProjectM.Views.Admin
                 return NotFound();
             }
 
-            var ticket = await _context.Ticket
+            var member = await _context.Member
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (ticket == null)
+            if (member == null)
             {
                 return NotFound();
             }
 
-            return View(ticket);
+            return View(member);
         }
 
-        // POST: Tickets/Delete/5
+        // POST: Members/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var ticket = await _context.Ticket.FindAsync(id);
-            _context.Ticket.Remove(ticket);
+            var member = await _context.Member.FindAsync(id);
+            _context.Member.Remove(member);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool TicketExists(int id)
+        private bool MemberExists(int id)
         {
-            return _context.Ticket.Any(e => e.Id == id);
+            return _context.Member.Any(e => e.Id == id);
         }
     }
 }

@@ -268,7 +268,11 @@ namespace MyProjectM.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+<<<<<<< HEAD
                     b.Property<string>("Name")
+=======
+                    b.Property<string>("FullName")
+>>>>>>> master
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -276,6 +280,7 @@ namespace MyProjectM.Migrations
                     b.ToTable("Member");
                 });
 
+<<<<<<< HEAD
             modelBuilder.Entity("MyProjectM.Models.Theater", b =>
                 {
                     b.Property<int>("Id")
@@ -294,6 +299,8 @@ namespace MyProjectM.Migrations
                     b.ToTable("theater");
                 });
 
+=======
+>>>>>>> master
             modelBuilder.Entity("MyProjectM.Models.Ticket", b =>
                 {
                     b.Property<int>("Id")
