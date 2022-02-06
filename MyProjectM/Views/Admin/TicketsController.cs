@@ -8,10 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using MyProjectM.Data;
 using MyProjectM.Models;
 
-namespace MyProjectM.Controllers
+namespace MyProjectM.Views.Admin
 {
-    
-    //[Route("admin/[controller]")]
     public class TicketsController : Controller
     {
         private readonly AuthContext _context;
@@ -21,8 +19,7 @@ namespace MyProjectM.Controllers
             _context = context;
         }
 
-        // GET: Admin/Tickets
-        //[HttpGet("/admin/Tickets")]
+        // GET: Tickets
         public async Task<IActionResult> Index()
         {
             return View(await _context.Ticket.ToListAsync());
@@ -57,7 +54,7 @@ namespace MyProjectM.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Price,Stock")] Ticket ticket)
+        public async Task<IActionResult> Create([Bind("Id,Name,Price,theater")] Ticket ticket)
         {
             if (ModelState.IsValid)
             {
@@ -89,7 +86,7 @@ namespace MyProjectM.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Price,Stock")] Ticket ticket)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Price,theater")] Ticket ticket)
         {
             if (id != ticket.Id)
             {

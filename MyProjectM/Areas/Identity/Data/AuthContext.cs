@@ -12,6 +12,14 @@ namespace MyProjectM.Data
 {
     public class AuthContext : IdentityDbContext<MyProjectMUser>
     {
+        public AuthContext() { }
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlServer(_connString);
+        }
+
+        private readonly string _connString = "Server=(LocalDB)\\MSSQLLocalDB;Database=MiniProjetfinal;Trusted_Connection=True;MultipleActiveResultSets=True";
+
         public AuthContext(DbContextOptions<AuthContext> options)
             : base(options)
         {
@@ -31,7 +39,10 @@ namespace MyProjectM.Data
 
         public DbSet<MyProjectM.Models.Ticket> Ticket { get; set; }
         public DbSet<Contact> Contact { get; set; }
-
-
+        public DbSet<MyProjectMUser> users { get; set; }
+        
+        public DbSet<Member> Member { get; set; }
+       // public DbSet<Ticket> Tickets { get; set; }
+        public DbSet<Theater> theater { get; set; }
     }
 }

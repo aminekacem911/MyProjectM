@@ -1,4 +1,4 @@
-﻿@model IEnumerable<MyProjectM.Models.Ticket>
+﻿@model IEnumerable<MyProjectM.Models.Theater>
 
 @{
     ViewData["Title"] = "Index";
@@ -14,32 +14,23 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Name)
+                @Html.DisplayNameFor(model => model.Place)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Price)
-            </th>
-             <th>
-                @Html.DisplayNameFor(model => model.theater)
+                @Html.DisplayNameFor(model => model.Capacity)
             </th>
             <th></th>
-            
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Name)
+                @Html.DisplayFor(modelItem => item.Place)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Price)
+                @Html.DisplayFor(modelItem => item.Capacity)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.theater)
-            </td>
-
-            
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.Id">Details</a> |

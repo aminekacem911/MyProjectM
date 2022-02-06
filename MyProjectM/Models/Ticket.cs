@@ -8,17 +8,20 @@ namespace MyProjectM.Models
     {
         [Key]
         public int Id { get; set; }
+
         [Column(TypeName = "nvarchar(100)")]
         [Required]
         public string Name { get; set; }
-        [Column(TypeName = "nvarchar(100)")]
-        [Required]
 
+        [Required]
         public string Price { get; set; }
-        [Column(TypeName = "nvarchar(100)")]
-        [Required]
+        public Theater theater { get; set; }
 
-        public string Stock { get; set; }
+
+
+
+
+
 
     }
 }
