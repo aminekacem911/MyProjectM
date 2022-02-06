@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using MyProjectM.Data;
 using MyProjectM.Models;
+using System.Linq;
 
 namespace MyProjectM.Controllers
 {
@@ -21,6 +22,8 @@ namespace MyProjectM.Controllers
             var data = await apiLib.TitleAsync(id, Language.en, "FullActor,FullCast,Posters,Images,Trailer,Ratings,Wikipedia");
 
             ViewBag.data = data;
+            ViewBag.members = _context.Member.ToList();
+            ViewBag.theaters = _context.theater.ToList();
             return View("~/Views/Home/Booking.cshtml");
         }
         public ActionResult Add(Order order)
@@ -29,7 +32,7 @@ namespace MyProjectM.Controllers
             //{
             //    _context.Order.Add(order);
             //    _context.SaveChanges();
-            //    //:::://return RedirectToAction("Index");
+                
             //}
             return View();
 

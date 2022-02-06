@@ -19,7 +19,7 @@ namespace MyProjectM.Data
             optionsBuilder.UseSqlServer(_connString);
         }
 
-        private readonly string _connString = "Server=(LocalDB)\\MSSQLLocalDB;Database=MiniProjetfinal;Trusted_Connection=True;MultipleActiveResultSets=True";
+        private readonly string _connString = "Server=(LocalDB)\\MSSQLLocalDB;Database=MiniProjetnew;Trusted_Connection=True;MultipleActiveResultSets=True";
 
         public AuthContext(DbContextOptions<AuthContext> options)
             : base(options)

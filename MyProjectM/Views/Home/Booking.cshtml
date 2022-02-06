@@ -19,6 +19,7 @@
   </style>
 <div class="container">
     <div class="row">
+          <form>
         <div class="col-md-4">
             <div class="song">
 						<div class="song-info">
@@ -36,7 +37,7 @@
                </div><br/>
                 <div class="card-body" >
                     <div class="row">
-                            <form>
+                          
                                 <div class="col-md-8">
                                      <div class="form-group">
                                              <label>Num of Tickets :</label>
@@ -57,9 +58,9 @@
                                             <label>Theater place :</label><br/>
                                             <select class="form-control" id="SelectedYear" name="SelectedYear">       
                                                   @*<option value="2010" @(selectedOption == 2010 ? "selected" : "")>2010</option>*@
-                                                <option value="2011">sousse</option>             
-                                                <option value="2012">monastri</option>
-                                                       <option value="2013">zimbabwee</option>
+                                                @foreach (var ths in ViewBag.theaters){           
+                                                <option value="@ths.Id">@ths.Place</option>
+                                                }
                                             </select>
                                      </div>
                                      <div class="form-group">
@@ -69,16 +70,17 @@
                                                   width:200px;   
                                                 }
                                          </style>
-                                         @Html.DropDownList("customers", new List<SelectListItem>
-                                            {
-                                           new SelectListItem{ Text="amine", Value = "1" },
-                                           new SelectListItem{ Text="rihab", Value = "2" },
-                                           new SelectListItem{ Text="test", Value = "3" },
-                                   
-                                        } ,new { @multiple = "multiple" })
+                                        
+                                         <select class="form-control" id="customers" name="members" multiple="multiple">       
+                                                  @*<option value="2010" @(selectedOption == 2010 ? "selected" : "")>2010</option>*@
+                                                @foreach (var membre in ViewBag.members){
+                                                  <option value="@membre.Id">@membre.FullName</option>             
+                                                }
+                                            </select>
+                                        
                                      </div>
-                                    @* @Html.DropDownList("1", Model, new { @multiple = "multiple" })*@
-                                    <input class="btn btn-primary" type="submit" name="Book" value="Book"/>
+                                     <input type="hidden" name="user_id" value="@UserManager.GetUserName(User)" />
+                                    <center><input class="btn btn-primary" type="submit" name="Book" value="Book"/></center>
                                 </div>
                             </form>
                         <div class="col-md-4">
@@ -91,9 +93,11 @@
                                         <li id="box">@UserManager.GetUserName(User)</li>
                                        
                                 }
-                                
-                                <li>amine</li>
-                                <li>rihab</li>
+                                 @foreach (var membre in ViewBag.members){
+                                      <li>@membre.FullName</li>
+                                 }
+                               
+                               
                             </ul></center>
                             <center><button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Add Member</button></center>
                         </div>
