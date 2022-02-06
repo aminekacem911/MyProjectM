@@ -19,18 +19,14 @@ namespace MyProjectM.Data
             optionsBuilder.UseSqlServer(_connString);
         }
 
-        private readonly string _connString = "Server=(LocalDB)\\MSSQLLocalDB;Database=MyProjectM;Trusted_Connection=True;MultipleActiveResultSets=True";
+        private readonly string _connString = "Server=(LocalDB)\\MSSQLLocalDB;Database=MiniProjetfinal;Trusted_Connection=True;MultipleActiveResultSets=True";
 
         public AuthContext(DbContextOptions<AuthContext> options)
             : base(options)
         {
         }
 
-        public DbSet<MyProjectM.Models.Ticket> Ticket { get; set; }
-        public DbSet<Contact> Contact { get; set; }
-        
-        public DbSet<MyProjectM.Models.Member> Member { get; set; }
-       // public DbSet<Areas.Identity.Data.MyProjectMUser> Users { get; set; }
+       
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

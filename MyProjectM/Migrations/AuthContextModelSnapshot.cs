@@ -276,6 +276,24 @@ namespace MyProjectM.Migrations
                     b.ToTable("Member");
                 });
 
+            modelBuilder.Entity("MyProjectM.Models.Theater", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("Capacity")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Place")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("theater");
+                });
+
             modelBuilder.Entity("MyProjectM.Models.Ticket", b =>
                 {
                     b.Property<int>("Id")
@@ -289,13 +307,14 @@ namespace MyProjectM.Migrations
 
                     b.Property<string>("Price")
                         .IsRequired()
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Stock")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(100)");
+                    b.Property<int?>("theaterId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("theaterId");
 
                     b.ToTable("Ticket");
                 });
@@ -349,6 +368,13 @@ namespace MyProjectM.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("MyProjectM.Models.Ticket", b =>
+                {
+                    b.HasOne("MyProjectM.Models.Theater", "theater")
+                        .WithMany("tickets")
+                        .HasForeignKey("theaterId");
                 });
 #pragma warning restore 612, 618
         }
