@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -11,9 +10,6 @@ using MyProjectM.Models;
 
 namespace MyProjectM.Views.Admin
 {
-
-    [Authorize]
-    //[Route("admin/[controller]")]
     public class TicketsController : Controller
     {
         private readonly AuthContext _context;
@@ -58,15 +54,23 @@ namespace MyProjectM.Views.Admin
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Price,theater")] Ticket ticket)
+        public async Task<IActionResult> Create([Bind("Id,Name,Price")] Ticket ticket)
         {
-            if (ModelState.IsValid)
+            int count = _context.Ticket.ToList().Count();
+            if (count < 1)
             {
-                _context.Add(ticket);
-                await _context.SaveChangesAsync();
+                if (ModelState.IsValid)
+                {
+                    _context.Add(ticket);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+                return View(ticket);
+            }
+            else
+            {
                 return RedirectToAction(nameof(Index));
             }
-            return View(ticket);
         }
 
         // GET: Tickets/Edit/5
@@ -90,7 +94,7 @@ namespace MyProjectM.Views.Admin
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Price,theater")] Ticket ticket)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Price")] Ticket ticket)
         {
             if (id != ticket.Id)
             {

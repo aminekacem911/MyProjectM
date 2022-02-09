@@ -28,7 +28,7 @@ namespace MyProjectM.Controllers
             }
 
             var theater = await _context.theater
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.TheaterID == id);
             if (theater == null)
             {
                 return NotFound();
@@ -74,7 +74,7 @@ namespace MyProjectM.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Place,Capacity")] Theater theater)
         {
-            if (id != theater.Id)
+            if (id != theater.TheaterID)
             {
                 return NotFound();
             }
@@ -88,7 +88,7 @@ namespace MyProjectM.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!TheaterExists(theater.Id))
+                    if (!TheaterExists(theater.TheaterID))
                     {
                         return NotFound();
                     }
@@ -104,7 +104,7 @@ namespace MyProjectM.Controllers
 
         private bool TheaterExists(int id)
         {
-            return _context.theater.Any(e => e.Id == id);
+            return _context.theater.Any(e => e.TheaterID == id);
         }
 
         public async Task<IActionResult> Delete(int? id)
@@ -115,7 +115,7 @@ namespace MyProjectM.Controllers
             }
 
             var theater = await _context.theater
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.TheaterID == id);
             if (theater == null)
             {
                 return NotFound();

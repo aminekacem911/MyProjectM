@@ -46,7 +46,9 @@ namespace MyProjectM.Controllers
             ViewBag.boxes = boxes;
             var ths = await apiLib.InTheatersAsync();
             ViewBag.ths = ths;
- 
+            var movies = await apiLib.MostPopularMoviesAsync();
+            ViewBag.movies = movies;
+
             return View();
         }
         [HttpGet]
@@ -72,7 +74,7 @@ namespace MyProjectM.Controllers
         }
         public async Task<IActionResult> DetailsAsync(string id)
         {
-            var apiLib = new ApiLib("k_3mj6zgvx");
+            var apiLib = new ApiLib("k_9yyzypa4");
             var data = await apiLib.TitleAsync(id, Language.en, "FullActor,FullCast,Posters,Images,Trailer,Ratings,Wikipedia");
            
             ViewBag.data = data;

@@ -19,6 +19,7 @@
                         <tr>
                             <th>@Html.DisplayNameFor(x=>x.FirstName)</th>
                             <th>@Html.DisplayNameFor(x=>x.LastName)</th>
+                            <th>@Html.DisplayNameFor(x=>x.Email)</th>
                                                                  
                         </tr>
                     </thead>
@@ -29,7 +30,7 @@
                             <tr>
                             <td>@Html.DisplayFor(p=>item.FirstName)</td>
                             <td>@Html.DisplayFor(p=>item.LastName)</td>
-                            <td>@Html.ActionLink("Delete", "Delete", new { id = item.Id })     </td>
+                            <td>@Html.DisplayFor(p=>item.Email)</td>
                                           
                             </tr>
                                         

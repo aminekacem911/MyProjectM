@@ -31,6 +31,10 @@ namespace MyProjectM.Controllers
         public InputModel Input { get; set; }
         public IActionResult Index()
         {
+            
+            ViewBag.users = _context.users.ToList().Count();
+            ViewBag.orders = 0;// _context.orders.ToList().Count();
+            ViewBag.requests = _context.Contact.ToList().Count(); ;
             return View();
         }
         public IActionResult Users()

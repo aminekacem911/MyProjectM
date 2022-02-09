@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MyProjectM.Data;
 
 namespace MyProjectM.Migrations
 {
     [DbContext(typeof(AuthContext))]
-    partial class AuthContextModelSnapshot : ModelSnapshot
+    [Migration("20220208225251_order")]
+    partial class order
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -307,7 +309,7 @@ namespace MyProjectM.Migrations
 
             modelBuilder.Entity("MyProjectM.Models.Theater", b =>
                 {
-                    b.Property<int>("TheaterID")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -318,7 +320,7 @@ namespace MyProjectM.Migrations
                     b.Property<string>("Place")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("TheaterID");
+                    b.HasKey("Id");
 
                     b.ToTable("theater");
                 });
@@ -338,7 +340,12 @@ namespace MyProjectM.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("theaterId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("theaterId");
 
                     b.ToTable("Ticket");
                 });
@@ -392,6 +399,13 @@ namespace MyProjectM.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("MyProjectM.Models.Ticket", b =>
+                {
+                    b.HasOne("MyProjectM.Models.Theater", "theater")
+                        .WithMany("tickets")
+                        .HasForeignKey("theaterId");
                 });
 #pragma warning restore 612, 618
         }

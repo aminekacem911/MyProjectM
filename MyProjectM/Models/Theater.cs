@@ -1,13 +1,15 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace MyProjectM.Models
 {
     public class Theater
     {
      
-        public int Id { get; set; }
+        public int TheaterID { get; set; }
+        [Required]
         public string Place { get; set; }
+        [Required]
         public int Capacity { get; set; }
-        public ICollection<Ticket> tickets { get; set; }
     }
 }

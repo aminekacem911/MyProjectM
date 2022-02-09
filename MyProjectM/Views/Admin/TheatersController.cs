@@ -34,7 +34,7 @@ namespace MyProjectM.Views.Admin
             }
 
             var theater = await _context.theater
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.TheaterID == id);
             if (theater == null)
             {
                 return NotFound();
@@ -54,7 +54,7 @@ namespace MyProjectM.Views.Admin
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Place,Capacity")] Theater theater)
+        public async Task<IActionResult> Create([Bind("TheaterID,Place,Capacity")] Theater theater)
         {
             if (ModelState.IsValid)
             {
@@ -86,9 +86,9 @@ namespace MyProjectM.Views.Admin
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Place,Capacity")] Theater theater)
+        public async Task<IActionResult> Edit(int id, [Bind("TheaterID,Place,Capacity")] Theater theater)
         {
-            if (id != theater.Id)
+            if (id != theater.TheaterID)
             {
                 return NotFound();
             }
@@ -102,7 +102,7 @@ namespace MyProjectM.Views.Admin
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!TheaterExists(theater.Id))
+                    if (!TheaterExists(theater.TheaterID))
                     {
                         return NotFound();
                     }
@@ -125,7 +125,7 @@ namespace MyProjectM.Views.Admin
             }
 
             var theater = await _context.theater
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.TheaterID == id);
             if (theater == null)
             {
                 return NotFound();
@@ -147,7 +147,7 @@ namespace MyProjectM.Views.Admin
 
         private bool TheaterExists(int id)
         {
-            return _context.theater.Any(e => e.Id == id);
+            return _context.theater.Any(e => e.TheaterID == id);
         }
     }
 }

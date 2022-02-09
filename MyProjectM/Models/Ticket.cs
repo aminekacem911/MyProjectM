@@ -15,11 +15,8 @@ namespace MyProjectM.Models
 
         [Required]
         public string Price { get; set; }
-        public Theater theater { get; set; }
-
-
-
-
+       // public int TheaterID { get; set; }
+        //public Theater theater { get; set; }
 
 
 
