@@ -19,7 +19,7 @@ namespace MyProjectM.Data
             optionsBuilder.UseSqlServer(_connString);
         }
 
-        private readonly string _connString = "Server=(LocalDB)\\MSSQLLocalDB;Database=MiniProjetF;Trusted_Connection=True;MultipleActiveResultSets=True";
+        private readonly string _connString = "Server=(LocalDB)\\MSSQLLocalDB;Database=MiniProjetnew9;Trusted_Connection=True;MultipleActiveResultSets=True";
 
         public AuthContext(DbContextOptions<AuthContext> options)
             : base(options)
@@ -38,7 +38,7 @@ namespace MyProjectM.Data
         public DbSet<MyProjectM.Models.Ticket> Ticket { get; set; }
         public DbSet<Contact> Contact { get; set; }
         public DbSet<MyProjectMUser> users { get; set; }
-        public DbSet<Order> orders { get; set; }
+        
         public DbSet<Member> Member { get; set; }
        // public DbSet<Ticket> Tickets { get; set; }
         public DbSet<Theater> theater { get; set; }

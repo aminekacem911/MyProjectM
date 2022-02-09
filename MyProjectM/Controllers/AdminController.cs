@@ -37,10 +37,10 @@ namespace MyProjectM.Controllers
             ViewBag.requests = _context.Contact.ToList().Count(); ;
             return View();
         }
-        public IActionResult Users()
-        {
-            return View(_context.users.ToList());
-        }
+        //public IActionResult Users()
+        //{
+        //    return View(_context.users.ToList());
+        //}
 
 
         public async Task<IActionResult> ContactListeAsync()

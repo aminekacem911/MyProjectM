@@ -25,7 +25,7 @@ namespace MyProjectM.Areas.Identity.Data
         [Column(TypeName = "nvarchar(100)")]
         public string Isadmin { get; set; }
 
-     
+        public IEnumerable<Member> Members { get; set; }
 
     }
 }

@@ -1,5 +1,6 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @using MyProjectM.Areas.Identity.Data
+@model Order
 
 @inject SignInManager<MyProjectMUser> SignInManager
 @inject UserManager<MyProjectMUser> UserManager
@@ -18,116 +19,111 @@
     }
   </style>
 <div class="container">
-    <div class="row">
-          <form>
-        <div class="col-md-4">
-            <div class="song">
-						<div class="song-info">
-							<center><h3>@ViewBag.data.Title</h3></center>
-					</div>
-						<div class="video-grid-single-page-agileits">
-							<div> <img src="@ViewBag.data.Image" alt="@ViewBag.data.Title" class="img-responsive" />  </div>
-						</div>
-					</div>
-        </div>
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-header">
-                        <center><h4>Reservation</h4></center>
-               </div><br/>
-                <div class="card-body" >
-                    <div class="row">
-                          
-                                <div class="col-md-8">
-                                     <div class="form-group">
-                                             <label>Num of Tickets :</label>
-                                            <input  class="form-control" type="number" name="ticket" min="1" />
-                                       </div>
-                                       <div class="form-group">
-                                           <label>Are You Included ? </label><br/>
-                                           <center>
-                                             <label>Yes</label>
-                                             <input type="radio" id="show" name="example" value="yes" />
-                                             <label>No</label>
-                                             <input type="radio" id="hide" name="example" value="No" checked />
-                                            </center>
-                                       </div>
-                                         @*int selectedOption = ViewBag.SelectedOption;*@
-
-                                      <div class="form-group">
-                                            <label>Theater place :</label><br/>
-                                            <select class="form-control" id="SelectedYear" name="SelectedYear">       
-                                                  @*<option value="2010" @(selectedOption == 2010 ? "selected" : "")>2010</option>*@
-                                                @foreach (var ths in ViewBag.theaters){           
-                                                <option value="@ths.Id">@ths.Place</option>
-                                                }
-                                            </select>
-                                     </div>
-                                     <div class="form-group">
-                                         <label>Any specific Member :</label><br/>
-                                         <style>
-                                             #customers option{
-                                                  width:200px;   
-                                                }
-                                         </style>
-                                        
-                                         <select class="form-control" id="customers" name="members" multiple="multiple">       
-                                                  @*<option value="2010" @(selectedOption == 2010 ? "selected" : "")>2010</option>*@
-                                                @foreach (var membre in ViewBag.members){
-                                                  <option value="@membre.Id">@membre.FullName</option>             
-                                                }
-                                            </select>
-                                        
-                                     </div>
-                                     <input type="hidden" name="user_id" value="@UserManager.GetUserName(User)" />
-                                    <center><input class="btn btn-primary" type="submit" name="Book" value="Book"/></center>
-                                </div>
-                            </form>
+    
+          
+              <div class="row">
                         <div class="col-md-4">
-                            <center><h3>Who's Invited ?</h3></center>
-                            <center>
-                                <ul>
-                                @if (SignInManager.IsSignedIn(User))
-								{
-                                    
-                                        <li id="box">@UserManager.GetUserName(User)</li>
-                                       
-                                }
-                                 @foreach (var membre in ViewBag.members){
-                                      <li>@membre.FullName</li>
-                                 }
-                               
-                               
-                            </ul></center>
-                            <center><button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Add Member</button></center>
+                            <div class="song">
+						                <div class="song-info">
+                                            
+							                <center><h3>@ViewBag.data.Title</h3></center>
+					                </div>
+						                <div class="video-grid-single-page-agileits">
+							                <div> <img src="@ViewBag.data.Image" alt="@ViewBag.data.Title" class="img-responsive" />  </div>
+						                </div>
+					                </div>
                         </div>
-                    </div>
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-header">
+                                        <center><h4>Reservation</h4></center>
+                               </div><br/>
+                                <div class="card-body" >
+                                    <div class="row">
+                                                        
+                                                <div class="col-md-8">
+                                                    
+                                                    @using (Html.BeginForm("Add", "Booking", FormMethod.Post))  
+                                                    {
+                                                     <input type="hidden" asp-for="User" value="test" />
+                                                         <input type="hidden" asp-for="Film" value="11" />
+				                                              <div class="form-group">
+                                                                 <label>Num of Tickets :</label>
+                                                               <input  class="form-control" type="number" asp-for="Numticket" min="1" />
+                                                           </div>
+                                                               <div class="form-group">
+                                                                   <label>Are You Included ? </label><br/>
+                                                                   <center>
+                                                                     <label>Yes</label>
+                                                                     <input type="radio" id="show" asp-for="Include" value="yes" />
+                                                                     <label>No</label>
+                                                                     <input type="radio" id="hide" asp-for="Include" value="No" checked />
+                                                                    </center>
+                                                               </div>
+                                                                  <div class="form-group">
+                                                                        <label>Theater place :</label><br/>
+                                                                        <select class="form-control" id="ths" asp-for="Theater">       
+                                                                              
+                                                                            @foreach (var ths in ViewBag.theaters){           
+                                                                            <option value="@ths.Place">@ths.Place</option>
+                                                                            }
+                                                                        </select>
+                                                                 </div>
+                                                        <div class="form-group">
+                                                             <label>Any specific Member :</label><br/>
+                                                             <style>
+                                                                 #customers option{
+                                                                      width:200px;   
+                                                                    }
+                                                             </style>
+                                        
+                                                            <select class="form-control" id="customers" asp-for="Members" multiple="multiple">       
+                                                                   
+                                                                   @foreach (var membre in ViewBag.members){
+                                                                      <option value="@membre.FullName">@membre.FullName</option>             
+                                                                    }
+                                                                </select>
+                                        
+                                                         </div>
+                                                       
+                                                        <center><input class="btn btn-primary" type="submit" value="Book"/></center>
+                }
+                                                </div>
+                                             @*   <div class="col-md-8">
+                                                   @using (Html.BeginForm("Index", "Home", FormMethod.Post))
+                                                    {
+                                                   @Html.TextBoxFor(m => m.Numticket, new { @class = "form-control" }) 
+                                                    }
+                                                    <input type="submit" value="Submit"/>
+                                                </div>*@
+                                        <div class="col-md-4">
+                                            <center><h3>Who's Invited ?</h3></center>
+                                            <center>
+                                                <ul>
+                                                @if (SignInManager.IsSignedIn(User))
+								                {
+                                    
+                                                        <li id="box">@UserManager.GetUserName(User)</li>
+                                       
+                                                }
+                                                 @foreach (var membre in ViewBag.members){
+                                                      <li>@membre.FullName</li>
+                                                 }
+                               
+                               
+                                            </ul></center>
+                                            <center><button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Add Member</button></center>
+                                        </div>
+                                    </div>
                    
                    
+                                </div>
+                            </div>
+                        </div>
+                         
                 </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div id="myModal" class="modal fade" role="dialog">
-  <div class="modal-dialog">
-
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Modal Header</h4>
-      </div>
-      <div class="modal-body">
-        <p>Some text in the modal.</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-
-  </div>
-</div>
+                      
+@*<partial name="_Modal.cshtml" />*@
  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css"/>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
@@ -148,7 +144,7 @@ function handleRadioClick() {
   }
 }
 
-const radioButtons = document.querySelectorAll('input[name="example"]');
+const radioButtons = document.querySelectorAll('input[name="include"]');
 radioButtons.forEach(radio => {
   radio.addEventListener('click', handleRadioClick);
 });
