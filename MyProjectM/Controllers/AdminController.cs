@@ -33,10 +33,10 @@ namespace MyProjectM.Controllers
         {
             return View();
         }
-        public IActionResult Users()
-        {
-            return View(_context.users.ToList());
-        }
+        //public IActionResult Users()
+        //{
+        //    return View(_context.users.ToList());
+        //}
 
 
         public async Task<IActionResult> ContactListeAsync()

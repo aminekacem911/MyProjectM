@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using MyProjectM.Data;
 using MyProjectM.Models;
 using System.Linq;
+using System.Collections.Generic;
+using System;
 
 namespace MyProjectM.Controllers
 {
@@ -26,16 +28,71 @@ namespace MyProjectM.Controllers
             ViewBag.theaters = _context.theater.ToList();
             return View("~/Views/Home/Booking.cshtml");
         }
-        public ActionResult Add(Order order)
-        {
-            //if (ModelState.IsValid)
-            //{
-            //    _context.Order.Add(order);
-            //    _context.SaveChanges();
-                
-            //}
-            return View();
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Add(){
+            string ticket = Request.Form["Numticket"].ToString();
+            string film = Request.Form["Film"].ToString();
+            string user = Request.Form["User"].ToString();
+            string include = Request.Form["Include"].ToString(); //yes or no
+            string theater = Request.Form["Theater"].ToString();
+          // string listmember = Request.Form["Members"];
+            string[] member = Request.Form["Members"];
+            string combinedString = string.Join(",", member);
 
+            Order or = new Order();
+            or.Film = film;
+            or.User = user;
+            or.Numticket=ticket;
+            or.Theater = theater;
+            or.Members = combinedString;
+            _context.Orders.Add(or);
+            _context.SaveChanges();
+            return RedirectToAction(nameof(Index));
+        }
+        //public async Task<IActionResult> Add(string film, string user,string numticket,string theater,string include, System.Collections.Generic.List<string> Members)
+        //{
+
+        //    Order or = new Order(); 
+        //    or.Film = film;
+        //    or.User = user;
+        //    or.Numticket = numticket;
+        //    or.Theater = theater;
+        //    or.Include = include;
+        //    or.Members = Members;
+        //    //if (or.Include == "Yes")
+        //    //{
+
+        //    //}
+        //    //else
+        //    //{
+
+        //    //}
+        //    //if (ModelState.IsValid)
+        //    //{
+        //    _context.Add(or);
+        //       await _context.SaveChangesAsync();
+        //    return RedirectToAction(nameof(Index));
+        //    //}
+        //    //return View("Done");
+        //}
+        //public ActionResult Add(string member,string th)
+        //{
+        //    Order or = new Order();
+        //    or.Members = member;
+        //    or.Include = "Yee";
+        //    or.Theater =
+        //    //if (ModelState.IsValid)
+        //    //{
+        //    //    _context.Orders.Add(order);
+        //    //    _context.SaveChanges();
+
+        //    //}
+        //    return RedirectToAction("Index");
+        //}
+        public IActionResult Done()
+        {
+            return View("~/Views/Home/Done.cshtml");
         }
 
     }
