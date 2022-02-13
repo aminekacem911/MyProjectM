@@ -40,13 +40,15 @@
                                </div><br/>
                                 <div class="card-body" >
                                     <div class="row">
-                                                        
-                                                <div class="col-md-8">
+                                                     
+                                                            @Html.Raw(TempData["msg"])
+                        <div class="col-md-8">
                                                     
                                                     @using (Html.BeginForm("Add", "Booking", FormMethod.Post))  
                                                     {
-                                                     <input type="hidden" asp-for="User" value="test" />
-                                                         <input type="hidden" asp-for="Film" value="11" />
+                                                     <input type="hidden" asp-for="User" value="@UserManager.GetUserName(User)" />
+                                                         <input type="hidden" asp-for="Film" value="@ViewBag.data.Id" />
+                                                         <input type="hidden" asp-for="Total" value="0" />
 				                                              <div class="form-group">
                                                                  <label>Num of Tickets :</label>
                                                                <input  class="form-control" type="number" asp-for="Numticket" min="1" />
@@ -55,9 +57,9 @@
                                                                    <label>Are You Included ? </label><br/>
                                                                    <center>
                                                                      <label>Yes</label>
-                                                                     <input type="radio" id="show" asp-for="Include" value="yes" />
+                                                                     <input type="radio" id="show"   asp-for="Include" value="1" />
                                                                      <label>No</label>
-                                                                     <input type="radio" id="hide" asp-for="Include" value="No" checked />
+                                                                     <input type="radio" id="hide"  asp-for="Include" value="0" checked />
                                                                     </center>
                                                                </div>
                                                                   <div class="form-group">
@@ -65,7 +67,7 @@
                                                                         <select class="form-control" id="ths" asp-for="Theater">       
                                                                               
                                                                             @foreach (var ths in ViewBag.theaters){           
-                                                                            <option value="@ths.Place">@ths.Place</option>
+                                                                            <option value="@ths.TheaterID">@ths.Place</option>
                                                                             }
                                                                         </select>
                                                                  </div>
@@ -87,29 +89,18 @@
                                                          </div>
                                                        
                                                         <center><input class="btn btn-primary" type="submit" value="Book"/></center>
-                }
+                                                     }
                                                 </div>
-                                             @*   <div class="col-md-8">
-                                                   @using (Html.BeginForm("Index", "Home", FormMethod.Post))
-                                                    {
-                                                   @Html.TextBoxFor(m => m.Numticket, new { @class = "form-control" }) 
-                                                    }
-                                                    <input type="submit" value="Submit"/>
-                                                </div>*@
+                                            
                                         <div class="col-md-4">
                                             <center><h3>Who's Invited ?</h3></center>
                                             <center>
                                                 <ul>
-                                                @if (SignInManager.IsSignedIn(User))
-								                {
-                                    
+                                               
                                                         <li id="box">@UserManager.GetUserName(User)</li>
-                                       
-                                                }
-                                                 @foreach (var membre in ViewBag.members){
-                                                      <li>@membre.FullName</li>
-                                                 }
-                               
+                                                        @foreach (var membre in ViewBag.members){
+                                                               <li>@membre.FullName</li>
+                                                        }
                                
                                             </ul></center>
                                             <center><button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Add Member</button></center>
@@ -144,7 +135,7 @@ function handleRadioClick() {
   }
 }
 
-const radioButtons = document.querySelectorAll('input[name="include"]');
+const radioButtons = document.querySelectorAll('input[name="Include"]');
 radioButtons.forEach(radio => {
   radio.addEventListener('click', handleRadioClick);
 });

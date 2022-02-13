@@ -8,18 +8,17 @@ namespace MyProjectM.Models
     {
         [Key]
         public int Id { get; set; }
-        public string Include { get; set; }
+        public int Include { get; set; }
         
         public string Film { get; set; }
         
-        public string Numticket { get; set; }
+        public int Numticket { get; set; }
 
         public string Members { get; set; }
-        //public List<string> Members { set; get; }
-       // public int[] SelectedMember { set; get; }
 
         public string Theater { get; set; }
         public string User { get; set; }
-        
+        public int Total { get; set; }
+
     }
 }

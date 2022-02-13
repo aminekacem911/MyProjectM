@@ -271,7 +271,12 @@ namespace MyProjectM.Migrations
                     b.Property<string>("FullName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("MyProjectMUserId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("MyProjectMUserId");
 
                     b.ToTable("Member");
                 });
@@ -286,23 +291,27 @@ namespace MyProjectM.Migrations
                     b.Property<string>("Film")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Include")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Members")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("Numticket")
                         .HasColumnType("int");
 
-                    b.Property<string>("member")
-                        .IsRequired()
+                    b.Property<string>("Theater")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("placeticket")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Total")
+                        .HasColumnType("int");
 
-                    b.Property<string>("total")
+                    b.Property<string>("User")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("orders");
+                    b.ToTable("Orders");
                 });
 
             modelBuilder.Entity("MyProjectM.Models.Theater", b =>
@@ -316,6 +325,7 @@ namespace MyProjectM.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Place")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("TheaterID");
@@ -334,9 +344,8 @@ namespace MyProjectM.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<string>("Price")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Price")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -392,6 +401,13 @@ namespace MyProjectM.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("MyProjectM.Models.Member", b =>
+                {
+                    b.HasOne("MyProjectM.Areas.Identity.Data.MyProjectMUser", null)
+                        .WithMany("Members")
+                        .HasForeignKey("MyProjectMUserId");
                 });
 #pragma warning restore 612, 618
         }

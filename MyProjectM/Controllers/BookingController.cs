@@ -7,9 +7,12 @@ using MyProjectM.Models;
 using System.Linq;
 using System.Collections.Generic;
 using System;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MyProjectM.Controllers
 {
+    [Authorize]
     public class BookingController : Controller
     {
         private readonly AuthContext _context;
@@ -20,7 +23,7 @@ namespace MyProjectM.Controllers
         }
         public async Task<IActionResult> Index(string id)
         {
-            var apiLib = new ApiLib("k_3mj6zgvx");
+            var apiLib = new ApiLib("k_9yyzypa4");
             var data = await apiLib.TitleAsync(id, Language.en, "FullActor,FullCast,Posters,Images,Trailer,Ratings,Wikipedia");
 
             ViewBag.data = data;
@@ -30,66 +33,78 @@ namespace MyProjectM.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Add(){
-            string ticket = Request.Form["Numticket"].ToString();
+        public async Task<ActionResult> AddAsync(){
+
+            int total = int.Parse(Request.Form["Total"]);
+            int ticket = int.Parse(Request.Form["Numticket"]);
             string film = Request.Form["Film"].ToString();
             string user = Request.Form["User"].ToString();
-            string include = Request.Form["Include"].ToString(); //yes or no
-            string theater = Request.Form["Theater"].ToString();
-          // string listmember = Request.Form["Members"];
+           // string include = Request.Form["Include"].ToString(); //yes or no
+            int include = int.Parse(Request.Form["Include"]);
+            int theater = int.Parse(Request.Form["Theater"].ToString());
             string[] member = Request.Form["Members"];
-            string combinedString = string.Join(",", member);
+            //from DB
+            var gettheaterdata = await _context.theater
+                .FirstOrDefaultAsync(m => m.TheaterID == theater);
+            var getticketdata = await _context.Ticket.FirstAsync();
+            //
+            
+            var membercount = 0;
+            
+            var combinedString = "";
+             
+            if (include == 1)
+            {
+                
+                combinedString = string.Join( user + ",", member);
+                membercount = Request.Form["Members"].Count +1 ;
 
+            }
+            if (include == 0)
+            {
+                combinedString = string.Join(",", member);
+                membercount = Request.Form["Members"].Count;
+
+            }
             Order or = new Order();
             or.Film = film;
             or.User = user;
-            or.Numticket=ticket;
-            or.Theater = theater;
+            or.Numticket= ticket;
+            or.Theater = gettheaterdata.Place;
             or.Members = combinedString;
-            _context.Orders.Add(or);
-            _context.SaveChanges();
-            return RedirectToAction(nameof(Index));
+            or.Include = include;
+            or.Total = membercount * getticketdata.Price;
+            if(gettheaterdata.Capacity > ticket)
+            {   if(ticket == membercount)
+                {
+                    ///for theater
+                    gettheaterdata.Capacity = gettheaterdata.Capacity - ticket;
+                    _context.Update(gettheaterdata);
+                    _context.SaveChanges();
+                    //for order
+                    _context.Orders.Add(or);
+                    _context.SaveChanges();
+                    return RedirectToAction(nameof(Done));
+                    TempData["msg"] = "<script>alert('Done !!');</script>";
+                    //ViewBag.YMessage = "done !";
+                }
+                else {
+                    TempData["msg"] = "<script>alert('Number Tickets and Number of members Not equals!);</script>";
+                    //ViewBag.NMessage = "Number Tickets and Number of members Not equals!";
+                    return RedirectToAction(nameof(Index));
+                }
+               
+
+            }
+            else
+            {
+                TempData["msg"] = "<script>alert('capacity Theater reached ');</script>";
+                //ViewBag.NMessage = "capacity Theater reached !";
+                return RedirectToAction(nameof(Index));
+            }
+           
         }
-        //public async Task<IActionResult> Add(string film, string user,string numticket,string theater,string include, System.Collections.Generic.List<string> Members)
-        //{
-
-        //    Order or = new Order(); 
-        //    or.Film = film;
-        //    or.User = user;
-        //    or.Numticket = numticket;
-        //    or.Theater = theater;
-        //    or.Include = include;
-        //    or.Members = Members;
-        //    //if (or.Include == "Yes")
-        //    //{
-
-        //    //}
-        //    //else
-        //    //{
-
-        //    //}
-        //    //if (ModelState.IsValid)
-        //    //{
-        //    _context.Add(or);
-        //       await _context.SaveChangesAsync();
-        //    return RedirectToAction(nameof(Index));
-        //    //}
-        //    //return View("Done");
-        //}
-        //public ActionResult Add(string member,string th)
-        //{
-        //    Order or = new Order();
-        //    or.Members = member;
-        //    or.Include = "Yee";
-        //    or.Theater =
-        //    //if (ModelState.IsValid)
-        //    //{
-        //    //    _context.Orders.Add(order);
-        //    //    _context.SaveChanges();
-
-        //    //}
-        //    return RedirectToAction("Index");
-        //}
+       
         public IActionResult Done()
         {
             return View("~/Views/Home/Done.cshtml");

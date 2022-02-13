@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MyProjectM.Migrations
 {
-    public partial class Newmg : Migration
+    public partial class test : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -67,30 +67,50 @@ namespace MyProjectM.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Member",
+                name: "Orders",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    FullName = table.Column<string>(nullable: true)
+                    Include = table.Column<string>(nullable: true),
+                    Film = table.Column<string>(nullable: true),
+                    Numticket = table.Column<int>(nullable: false),
+                    Members = table.Column<string>(nullable: true),
+                    Theater = table.Column<string>(nullable: true),
+                    User = table.Column<string>(nullable: true),
+                    Total = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Member", x => x.Id);
+                    table.PrimaryKey("PK_Orders", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
                 name: "theater",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    TheaterID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Place = table.Column<string>(nullable: true),
+                    Place = table.Column<string>(nullable: false),
                     Capacity = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_theater", x => x.Id);
+                    table.PrimaryKey("PK_theater", x => x.TheaterID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Ticket",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(100)", nullable: false),
+                    Price = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Ticket", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -200,22 +220,21 @@ namespace MyProjectM.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Ticket",
+                name: "Member",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(100)", nullable: false),
-                    Price = table.Column<string>(nullable: false),
-                    theaterId = table.Column<int>(nullable: true)
+                    FullName = table.Column<string>(nullable: true),
+                    MyProjectMUserId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Ticket", x => x.Id);
+                    table.PrimaryKey("PK_Member", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Ticket_theater_theaterId",
-                        column: x => x.theaterId,
-                        principalTable: "theater",
+                        name: "FK_Member_AspNetUsers_MyProjectMUserId",
+                        column: x => x.MyProjectMUserId,
+                        principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -260,9 +279,9 @@ namespace MyProjectM.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Ticket_theaterId",
-                table: "Ticket",
-                column: "theaterId");
+                name: "IX_Member_MyProjectMUserId",
+                table: "Member",
+                column: "MyProjectMUserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -289,6 +308,12 @@ namespace MyProjectM.Migrations
                 name: "Member");
 
             migrationBuilder.DropTable(
+                name: "Orders");
+
+            migrationBuilder.DropTable(
+                name: "theater");
+
+            migrationBuilder.DropTable(
                 name: "Ticket");
 
             migrationBuilder.DropTable(
@@ -296,9 +321,6 @@ namespace MyProjectM.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
-
-            migrationBuilder.DropTable(
-                name: "theater");
         }
     }
 }
