@@ -42,7 +42,7 @@ namespace MyProjectM.Controllers
            // string include = Request.Form["Include"].ToString(); //yes or no
             int include = int.Parse(Request.Form["Include"]);
             int theater = int.Parse(Request.Form["Theater"].ToString());
-            string[] member = Request.Form["Members"];
+            string[] getmembere = Request.Form["Members"];
             //from DB
             var gettheaterdata = await _context.theater
                 .FirstOrDefaultAsync(m => m.TheaterID == theater);
@@ -51,18 +51,18 @@ namespace MyProjectM.Controllers
             
             var membercount = 0;
             
-            var combinedString = "";
+            string combinedString = "";
              
             if (include == 1)
             {
                 
-                combinedString = string.Join( user + ",", member);
+                combinedString = string.Join( user + ",", getmembere);
                 membercount = Request.Form["Members"].Count +1 ;
 
             }
             if (include == 0)
             {
-                combinedString = string.Join(",", member);
+                combinedString = string.Join(",", getmembere);
                 membercount = Request.Form["Members"].Count;
 
             }
@@ -75,8 +75,8 @@ namespace MyProjectM.Controllers
             or.Include = include;
             or.Total = membercount * getticketdata.Price;
             if(gettheaterdata.Capacity > ticket)
-            {   if(ticket == membercount)
-                {
+            {  // if(ticket == membercount)
+            //    {
                     ///for theater
                     gettheaterdata.Capacity = gettheaterdata.Capacity - ticket;
                     _context.Update(gettheaterdata);
@@ -87,12 +87,12 @@ namespace MyProjectM.Controllers
                     return RedirectToAction(nameof(Done));
                     TempData["msg"] = "<script>alert('Done !!');</script>";
                     //ViewBag.YMessage = "done !";
-                }
-                else {
-                    TempData["msg"] = "<script>alert('Number Tickets and Number of members Not equals!);</script>";
-                    //ViewBag.NMessage = "Number Tickets and Number of members Not equals!";
-                    return RedirectToAction(nameof(Index));
-                }
+                //}
+                //else {
+                //    TempData["msg"] = "<script>alert('Number Tickets and Number of members Not equals!);</script>";
+                //    //ViewBag.NMessage = "Number Tickets and Number of members Not equals!";
+                //    return RedirectToAction(nameof(Index));
+                //}
                
 
             }
