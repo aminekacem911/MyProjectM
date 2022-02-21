@@ -75,8 +75,9 @@ namespace MyProjectM.Controllers
             or.Include = include;
             or.Total = membercount * getticketdata.Price;
             if(gettheaterdata.Capacity > ticket)
-            {  // if(ticket == membercount)
-            //    {
+            {  
+                //if(ticket == membercount)
+                //{
                     ///for theater
                     gettheaterdata.Capacity = gettheaterdata.Capacity - ticket;
                     _context.Update(gettheaterdata);
@@ -86,14 +87,15 @@ namespace MyProjectM.Controllers
                     _context.SaveChanges();
                     return RedirectToAction(nameof(Done));
                     TempData["msg"] = "<script>alert('Done !!');</script>";
-                    //ViewBag.YMessage = "done !";
+                    ViewBag.YMessage = "done !";
                 //}
-                //else {
+                //else
+                //{
                 //    TempData["msg"] = "<script>alert('Number Tickets and Number of members Not equals!);</script>";
                 //    //ViewBag.NMessage = "Number Tickets and Number of members Not equals!";
                 //    return RedirectToAction(nameof(Index));
                 //}
-               
+
 
             }
             else

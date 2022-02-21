@@ -46,7 +46,7 @@
                                                     
                                                     @using (Html.BeginForm("Add", "Booking", FormMethod.Post))  
                                                     {
-                                                     <input type="hidden" asp-for="User" value="@SignInManager.IsSignedIn(User)" />
+                                                     <input type="hidden" asp-for="User" value="@UserManager.GetUserName(User)" />
                                                          <input type="hidden" asp-for="Film" value="@ViewBag.data.Id" />
                                                          <input type="hidden" asp-for="Total" value="0" />
 				                                              <div class="form-group">
@@ -57,9 +57,9 @@
                                                                    <label>Are You Included ? </label><br/>
                                                                    <center>
                                                                      <label>Yes</label>
-                                                                     <input type="radio" id="show" name="check"  asp-for="Include" value="1" />
+                                                                     <input type="radio" id="show"  asp-for="Include" value="1" />
                                                                      <label>No</label>
-                                                                     <input type="radio" id="hide" name="check" asp-for="Include" value="0" checked />
+                                                                     <input type="radio" id="hide" asp-for="Include" value="0" checked />
                                                                     </center>
                                                                </div>
                                                                   <div class="form-group">
@@ -97,7 +97,7 @@
                                             <center>
                                                 <ul>
                                                
-                                                        <li id="box">@SignInManager.IsSignedIn(User)</li>
+                                                        <li id="box">@UserManager.GetUserName(User)</li>
                                                         @foreach (var membre in ViewBag.members){
                                                                <li>@membre.FullName</li>
                                                         }
@@ -135,7 +135,7 @@ function handleRadioClick() {
   }
 }
 
-const radioButtons = document.querySelectorAll('input[name="check"]');
+const radioButtons = document.querySelectorAll('input[name="Include"]');
 radioButtons.forEach(radio => {
   radio.addEventListener('click', handleRadioClick);
 });
