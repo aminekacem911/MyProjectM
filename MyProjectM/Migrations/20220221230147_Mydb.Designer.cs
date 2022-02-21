@@ -10,8 +10,8 @@ using MyProjectM.Data;
 namespace MyProjectM.Migrations
 {
     [DbContext(typeof(AuthContext))]
-    [Migration("20220213210509_test")]
-    partial class test
+    [Migration("20220221230147_Mydb")]
+    partial class Mydb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -273,12 +273,10 @@ namespace MyProjectM.Migrations
                     b.Property<string>("FullName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("MyProjectMUserId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<string>("User")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("MyProjectMUserId");
 
                     b.ToTable("Member");
                 });
@@ -293,8 +291,8 @@ namespace MyProjectM.Migrations
                     b.Property<string>("Film")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Include")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Include")
+                        .HasColumnType("int");
 
                     b.Property<string>("Members")
                         .HasColumnType("nvarchar(max)");
@@ -403,13 +401,6 @@ namespace MyProjectM.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("MyProjectM.Models.Member", b =>
-                {
-                    b.HasOne("MyProjectM.Areas.Identity.Data.MyProjectMUser", null)
-                        .WithMany("Members")
-                        .HasForeignKey("MyProjectMUserId");
                 });
 #pragma warning restore 612, 618
         }

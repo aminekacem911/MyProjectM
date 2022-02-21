@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MyProjectM.Migrations
 {
-    public partial class test : Migration
+    public partial class Mydb : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -67,12 +67,26 @@ namespace MyProjectM.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Member",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    FullName = table.Column<string>(nullable: true),
+                    User = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Member", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Orders",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Include = table.Column<string>(nullable: true),
+                    Include = table.Column<int>(nullable: false),
                     Film = table.Column<string>(nullable: true),
                     Numticket = table.Column<int>(nullable: false),
                     Members = table.Column<string>(nullable: true),
@@ -219,26 +233,6 @@ namespace MyProjectM.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "Member",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    FullName = table.Column<string>(nullable: true),
-                    MyProjectMUserId = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Member", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Member_AspNetUsers_MyProjectMUserId",
-                        column: x => x.MyProjectMUserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -277,11 +271,6 @@ namespace MyProjectM.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Member_MyProjectMUserId",
-                table: "Member",
-                column: "MyProjectMUserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

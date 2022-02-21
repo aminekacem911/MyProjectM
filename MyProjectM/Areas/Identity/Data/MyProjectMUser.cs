@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,8 +13,8 @@ namespace MyProjectM.Areas.Identity.Data
     // Add profile data for application users by adding properties to the MyProjectMUser class
     public class MyProjectMUser : IdentityUser
     {
-       
 
+        
         [PersonalData]
         [Column(TypeName="nvarchar(100)")]
         public string FirstName { get; set; }
@@ -24,8 +25,8 @@ namespace MyProjectM.Areas.Identity.Data
         [PersonalData]
         [Column(TypeName = "nvarchar(100)")]
         public string Isadmin { get; set; }
-
-        public IEnumerable<Member> Members { get; set; }
+       // public ICollection<Member> Members { get; set; }
+       // public IEnumerable<Member> Members { get; set; }
 
     }
 }

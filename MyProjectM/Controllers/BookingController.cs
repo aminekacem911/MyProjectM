@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNet.Identity;
 
 namespace MyProjectM.Controllers
 {
@@ -27,7 +28,8 @@ namespace MyProjectM.Controllers
             var data = await apiLib.TitleAsync(id, Language.en, "FullActor,FullCast,Posters,Images,Trailer,Ratings,Wikipedia");
 
             ViewBag.data = data;
-            ViewBag.members = _context.Member.ToList();
+            ViewBag.members = _context.Member.Where(m => m.User == User.Identity.GetUserName())
+                                      .ToList();
             ViewBag.theaters = _context.theater.ToList();
             return View("~/Views/Home/Booking.cshtml");
         }

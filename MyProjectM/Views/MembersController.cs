@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +12,7 @@ using MyProjectM.Models;
 
 namespace MyProjectM.Views
 {
+    [Authorize]
     public class MembersController : Controller
     {
         private readonly AuthContext _context;
@@ -22,7 +25,10 @@ namespace MyProjectM.Views
         // GET: Members
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Member.ToListAsync());
+            return View(
+                await _context.Member.Where(m => m.User == User.Identity.GetUserName())
+                                      .ToListAsync()
+                );
         }
 
         // GET: Members/Details/5
@@ -54,7 +60,7 @@ namespace MyProjectM.Views
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,FullName")] Member member)
+        public async Task<IActionResult> Create([Bind("Id,FullName,User")] Member member)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +92,7 @@ namespace MyProjectM.Views
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,FullName")] Member member)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,FullName,User")] Member member)
         {
             if (id != member.Id)
             {
